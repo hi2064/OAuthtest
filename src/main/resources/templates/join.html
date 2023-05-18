@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Ordo</title>
+</head>
+<body>
+<form method="post" action="/ordo/joinRedirect" onsubmit="return checkData()" name="join">
+  <label>Email</label>
+  <p style="">Email 중복확인 필요</p>
+  <p><input type="text" name="email" id="email" size="50" placeholder="형식에 맞게 입력하세요." onfocusout="return searchEmail()"></p>
+
+  <label>Password</label>
+  <p><input type="password" name="pw" id="pw" size=50 placeholder="8자 이상의 문자열, 하나 이상의 숫자, 문자, 특수문자를 포함해서 작성하세요."></p>
+  <p><label>이름</label>
+  <p><input type="text" name="name" id="name" size=50></p>
+  <label>핸드폰</label>
+  <p><input type="text" name="phone" id="phone" size=50></p>
+  <button type="submit" id="confirm" name="confirm" disabled="true">회원가입</button>
+</form>
+</body>
+</html>
+
+<script th:inline="javascript">
+  function checkData(){
+
+
+
+
+    const reqExp = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
+    const pwCheck = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/;
+    if(join.email.value == "" || join.email.value == null){
+      alert("이메일을 입력하세요.");
+      join.email.focus();
+      return false;
+    }
+    if(join.pw.value == "" || join.pw.value == null){
+      alert("비밀번호를 입력하세요.");
+      join.pw.focus();
+      return false;
+    }
+    if(!reqExp.test(join.email.value)){
+      alert("이메일 형식에맞게 작성해주세요");
+      join.email.focus();
+      return false;
+    }
+    if(!pwCheck.test(join.pw.value)){
+      alert("비밀번호 형식에맞게 작성해주세요");
+      join.pw.focus();
+      return false;
+    }
+
+
+    return true;
+  }
+
+  function searchEmail() {
+    const target = document.getElementById('confirm');
+    target.disabled = true;
+
+    const reqExp = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
+    if(join.email.value == "" || join.email.value == null){
+      alert("이메일을 입력하세요.");
+
+      return false;
+    }
+    if(!reqExp.test(join.email.value)){
+      alert("이메일 형식에맞게 작성해주세요");
+
+      return false;
+    }
+
+
+      $.ajax({
+        url:'/ordo/search',
+        type:'post',
+        dataType:'json',
+        data:{'email':join.email.value},
+        async: true,
+        success:function(result){
+          if(result == 1){
+            alert("이미 사용중인 이메일입니다.");
+          }else{
+            alert("사용 가능한 이메일입니다.");
+
+            target.disabled = false;
+          }
+
+
+        }
+      });
+
+  }
+
+</script>
+<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
