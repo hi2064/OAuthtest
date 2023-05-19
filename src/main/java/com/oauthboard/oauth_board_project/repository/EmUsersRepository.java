@@ -10,6 +10,10 @@ public interface EmUsersRepository extends JpaRepository<EmUsers, Long> {
 
   Optional<EmUsers> findByEmail(String email);
 
+  EmUsers findAllByEmail(String email);
+
+  Optional<EmUsers> findById(Long id);
+
 
 
 

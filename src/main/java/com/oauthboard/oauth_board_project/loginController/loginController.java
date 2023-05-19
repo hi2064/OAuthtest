@@ -3,6 +3,7 @@ package com.oauthboard.oauth_board_project.loginController;
 import com.oauthboard.oauth_board_project.dto.joinDto;
 
 import com.oauthboard.oauth_board_project.loginservice.joinservice;
+import com.oauthboard.oauth_board_project.loginservice.loginservice;
 import jakarta.servlet.http.HttpServletRequest;
 
 import jakarta.servlet.http.HttpServletResponse;
@@ -30,6 +31,7 @@ public class loginController {
 
   private final joinservice joinservice;
 
+
   // 로그인페이지 요청
   @GetMapping(value = "/welcome")
   public String loginPage() {
@@ -44,7 +46,7 @@ public class loginController {
 
   // 로그인처리
   @PostMapping(value = "/loginRedirect")
-  public String login(HttpServletRequest request, HttpServletResponse response) {
+  public String login() {
     System.out.println("컨트롤러");
 
     System.out.println("컨트롤러");
@@ -71,6 +73,7 @@ public class loginController {
 
     return joinservice.searchEmail(request.getParameter("email"));
   }
+
 
 
 }
