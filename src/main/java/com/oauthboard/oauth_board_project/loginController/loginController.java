@@ -15,6 +15,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder.BCryptVe
 
 import org.springframework.stereotype.Controller;
 
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -38,23 +39,6 @@ public class loginController {
 
     return "/login";
   }
-
-  @GetMapping(value = "/main")
-  public String mainPage() {
-    return "/loginRedirect";
-  }
-
-  // 로그인처리
-  @PostMapping(value = "/loginRedirect")
-  public String login() {
-    System.out.println("컨트롤러");
-
-    System.out.println("컨트롤러");
-
-
-    return "/login";
-  }
-
 
   @GetMapping(value = "/join" )
   public String joinOrdo() {

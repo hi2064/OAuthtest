@@ -7,8 +7,10 @@ import java.util.List;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.stereotype.Controller;
 
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -22,11 +24,13 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 @Slf4j
 @RequestMapping("/ordo")
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 public class boardController {
 
   private final boardService boardService;
 
   // 글목록
+
   @GetMapping(value = "/board/list")
   public List<EmBoard> getBoardList() {
     return boardService.getBoardList();

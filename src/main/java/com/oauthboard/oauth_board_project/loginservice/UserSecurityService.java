@@ -12,17 +12,23 @@ import java.util.Base64;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
+import javax.sql.DataSource;
 import lombok.Generated;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.AuthenticationProvider;
+import org.springframework.security.config.annotation.authentication.configuration.EnableGlobalAuthentication;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @RequiredArgsConstructor
@@ -39,6 +45,7 @@ public class UserSecurityService implements UserDetailsService {
       throw new UsernameNotFoundException("사용자를 찾을수 없습니다.");
     }
 
+
     EmUsers emUsers = users.get();
     List<GrantedAuthority> authorities = new ArrayList<>();
     if("admin".equals(email)){
@@ -52,9 +59,10 @@ public class UserSecurityService implements UserDetailsService {
 
 
 //
-//
+////
 //  @Value("${jwt.password}")
 //  private String secretKey;
+//
 //
 //  public String getToken(String email) {
 //    Date now = new Date();
@@ -71,4 +79,8 @@ public class UserSecurityService implements UserDetailsService {
 //        .compact();
 //    return token;
 //  }
+
+
+
+
 }

@@ -17,4 +17,6 @@ public interface boardService {
 
   Long updateBoard(Long id, boardDto req);
 
+  String getToken(String email);
+
 }
